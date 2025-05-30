@@ -18,14 +18,14 @@ class DepthMonitor:
             raise ValueError("Please set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, and TWILIO_PHONE_NUMBER in .env file")
         
         self.client = Client(self.account_sid, self.auth_token)
-        self.target_number = '+91904339525259'
+        self.target_number = '+919043395259'
         self.depth_threshold = 13  # in cm
         self.thingspeak_channel_id = "2971630"
         self.thingspeak_field_number = 1
         self.thingspeak_read_api_key = "CXMQZB0SQRA73H80"
         
     def send_whatsapp_message(self, depth):
-        message = f"Alert: Depth has exceeded 13cm! Current depth: {depth}cm"
+        message = f"Alert: Box about to be empty !!! "
         try:
             self.client.messages.create(
                 from_='whatsapp:' + self.twilio_phone,
@@ -64,7 +64,7 @@ class DepthMonitor:
             if depth is not None and depth > self.depth_threshold:
                 self.send_whatsapp_message(depth)
             
-            time.sleep(5)  # Check every 5 seconds
+            time.sleep(15)  # Check every 15 seconds 
 
 if __name__ == "__main__":
     try:
